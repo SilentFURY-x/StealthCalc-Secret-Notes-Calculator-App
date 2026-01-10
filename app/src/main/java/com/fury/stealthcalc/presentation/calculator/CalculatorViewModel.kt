@@ -49,7 +49,7 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
 
         // 1. CHECK FOR SECRET CODE
         // CHECK FOR SECRET CODE)
-        if (currentExpression == "67/67") {
+        if (currentExpression == "69/67") {
             _input.value = "" // Clear screen
             viewModelScope.launch {
                 _uiEvent.send(CalculatorUiEvent.ShowBiometricPrompt) // Trigger fingerprint, not nav

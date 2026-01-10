@@ -28,6 +28,14 @@ import com.fury.stealthcalc.ui.theme.PrimaryOrange
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.rememberSwipeToDismissBoxState
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 
 @Composable
 fun VaultScreen(
@@ -72,22 +80,60 @@ fun VaultScreen(
 
             // The List of Notes
             LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(2), // 2 Columns
+                columns = StaggeredGridCells.Fixed(2),
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = 80.dp), // Space for FAB
+                contentPadding = PaddingValues(bottom = 80.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalItemSpacing = 12.dp
             ) {
-                items(notes) { note ->
-                    NoteItem(
-                        note = note,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                navController.navigate("add_edit_note_screen?noteId=${note.id}&noteColor=${note.color}")
-                            },
-                        onDeleteClick = {
-                            viewModel.deleteNote(note)
+                items(notes, key = { it.id!! }) { note -> // IMPORTANT: Add key so Compose knows which item is which
+
+                    val dismissState = rememberSwipeToDismissBoxState(
+                        confirmValueChange = {
+                            if (it == SwipeToDismissBoxValue.EndToStart || it == SwipeToDismissBoxValue.StartToEnd) {
+                                viewModel.deleteNote(note) // Trigger Delete
+                                true
+                            } else {
+                                false
+                            }
+                        }
+                    )
+
+                    SwipeToDismissBox(
+                        state = dismissState,
+                        backgroundContent = {
+                            // The "Red" background that appears when you drag
+                            val color by animateColorAsState(
+                                targetValue = if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) Color.Transparent else Color(0xFFFF1744),
+                                label = "DismissColor"
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(16.dp)) // Match note shape
+                                    .background(color)
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center // Center the trash icon
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Delete",
+                                    tint = Color.White
+                                )
+                            }
+                        },
+                        content = {
+                            // The Actual Note
+                            NoteItem(
+                                note = note,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        navController.navigate("add_edit_note_screen?noteId=${note.id}&noteColor=${note.color}")
+                                    },
+                                onDeleteClick = {} // We don't need the click anymore
+                            )
                         }
                     )
                 }
