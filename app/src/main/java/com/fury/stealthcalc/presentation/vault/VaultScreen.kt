@@ -25,6 +25,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.fury.stealthcalc.ui.theme.DarkBackground
 import com.fury.stealthcalc.ui.theme.PrimaryOrange
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 
 @Composable
 fun VaultScreen(
@@ -68,9 +71,12 @@ fun VaultScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // The List of Notes
-            LazyColumn(
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(2), // 2 Columns
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                contentPadding = PaddingValues(bottom = 80.dp), // Space for FAB
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalItemSpacing = 12.dp
             ) {
                 items(notes) { note ->
                     NoteItem(
@@ -78,7 +84,6 @@ fun VaultScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                // Navigate to Edit Screen with existing ID
                                 navController.navigate("add_edit_note_screen?noteId=${note.id}&noteColor=${note.color}")
                             },
                         onDeleteClick = {

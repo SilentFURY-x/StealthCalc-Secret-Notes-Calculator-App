@@ -23,12 +23,12 @@ import com.fury.stealthcalc.data.Note
 fun NoteItem(
     note: Note,
     modifier: Modifier = Modifier,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit // We will ignore this for now to keep card clean
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(note.color)) // Uses the color saved in DB
+            .clip(RoundedCornerShape(16.dp)) // Softer corners
+            .background(Color(note.color))
             .padding(16.dp)
     ) {
         Column {
@@ -36,27 +36,17 @@ fun NoteItem(
                 text = note.title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                maxLines = 1,
+                color = Color.Black, // Ensure contrast
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = note.content,
                 fontSize = 14.sp,
-                color = Color.DarkGray,
-                maxLines = 5,
+                color = Color.Black.copy(alpha = 0.7f),
+                maxLines = 8, // Allow taller notes
                 overflow = TextOverflow.Ellipsis
-            )
-        }
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier.align(Alignment.BottomEnd)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "Delete note",
-                tint = Color.Black
             )
         }
     }

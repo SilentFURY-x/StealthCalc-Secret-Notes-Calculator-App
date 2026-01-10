@@ -1,5 +1,6 @@
 package com.fury.stealthcalc.presentation
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
@@ -16,7 +17,13 @@ import com.fury.stealthcalc.presentation.calculator.CalculatorUiEvent
 import com.fury.stealthcalc.presentation.calculator.CalculatorViewModel
 import com.fury.stealthcalc.presentation.vault.VaultScreen
 import kotlinx.coroutines.flow.collectLatest
+import androidx.biometric.BiometricPrompt
+import androidx.compose.runtime.remember
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.compose.ui.platform.LocalContext
 
+@SuppressLint("ContextCastToActivity")
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -26,15 +33,44 @@ fun Navigation() {
         // 1. Calculator
         composable("calculator_screen") {
             val viewModel: CalculatorViewModel = hiltViewModel()
+            val context = LocalContext.current as FragmentActivity
+
+            // 1. Setup the Biometric Prompt
+            val executor = ContextCompat.getMainExecutor(context)
+            val biometricPrompt = remember {
+                BiometricPrompt(context, executor, object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        // 2. On Success, tell ViewModel to Navigate
+                        viewModel.onBiometricSuccess()
+                    }
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        // Optional: Handle error (e.g., show Toast)
+                    }
+                })
+            }
+
+            val promptInfo = BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Stealth Access")
+                .setSubtitle("Authenticate to access the Vault")
+                .setNegativeButtonText("Cancel")
+                .build()
+
+            // 3. Listen for events
             LaunchedEffect(true) {
                 viewModel.uiEvent.collectLatest { event ->
                     when (event) {
+                        is CalculatorUiEvent.ShowBiometricPrompt -> {
+                            biometricPrompt.authenticate(promptInfo)
+                        }
                         is CalculatorUiEvent.NavigateToVault -> {
                             navController.navigate("vault_screen")
                         }
                     }
                 }
             }
+
             CalculatorScreen(viewModel = viewModel, onNavigateToVault = {})
         }
 

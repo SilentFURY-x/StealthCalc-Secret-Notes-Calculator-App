@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.fury.stealthcalc.ui.theme.*
+import androidx.compose.ui.graphics.Brush
 
 @Composable
 fun CalculatorScreen(
@@ -24,10 +25,18 @@ fun CalculatorScreen(
     val input by viewModel.input.collectAsState()
     val result by viewModel.result.collectAsState()
 
+    val cyberGradient = Brush.verticalGradient(
+        colors = listOf(
+            Color(0xFF0F2027), // Deep Blue/Black
+            Color(0xFF203A43),
+            Color(0xFF2C5364)  // Lighter Teal/Grey
+        )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(cyberGradient)
             .padding(16.dp),
         verticalArrangement = Arrangement.Bottom
     ) {

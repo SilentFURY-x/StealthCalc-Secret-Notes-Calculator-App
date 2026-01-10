@@ -49,12 +49,11 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
 
         // 1. CHECK FOR SECRET CODE
         // CHECK FOR SECRET CODE)
-        if (currentExpression == "69/67") {
+        if (currentExpression == "67/67") {
+            _input.value = "" // Clear screen
             viewModelScope.launch {
-                _uiEvent.send(CalculatorUiEvent.NavigateToVault) // <--- Trigger the event
+                _uiEvent.send(CalculatorUiEvent.ShowBiometricPrompt) // Trigger fingerprint, not nav
             }
-            _input.value = ""
-            _result.value = ""
             return
         }
 
@@ -71,6 +70,12 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
             }
         } catch (e: Exception) {
             _result.value = "Error"
+        }
+    }
+
+    fun onBiometricSuccess() {
+        viewModelScope.launch {
+            _uiEvent.send(CalculatorUiEvent.NavigateToVault)
         }
     }
 }
