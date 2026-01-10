@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.fury.stealthcalc.ui.theme.*
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemBars
 
 @Composable
 fun CalculatorScreen(
@@ -63,6 +66,7 @@ fun CalculatorScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(cyberGradient)
+            .windowInsetsPadding(WindowInsets.systemBars)
             .padding(16.dp),
         verticalArrangement = Arrangement.Bottom
     ) {

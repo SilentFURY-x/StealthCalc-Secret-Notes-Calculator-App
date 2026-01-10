@@ -45,6 +45,8 @@ fun VaultScreen(
     val notes by viewModel.notes.collectAsState()
 
     Scaffold(
+        // Scaffold handles system bars automatically if configured,
+        // but let's be explicit with the modifier on the column inside content
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -61,7 +63,11 @@ fun VaultScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(DarkBackground)
-                .padding(padding)
+                .padding(padding) // Scaffold padding handles bottom bar
+                .consumeWindowInsets(padding) // Fixes potential glitch
+                // Add status bar padding manually if needed, usually Scaffold handles it
+                // but strictly for edge-to-edge with custom colors:
+                .windowInsetsPadding(WindowInsets.systemBars)
                 .padding(16.dp)
         ) {
             Row(

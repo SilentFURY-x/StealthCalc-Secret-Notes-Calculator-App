@@ -43,8 +43,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun StealthCalcTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false, // Setting to false so our custom Orange overrides system colors
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -60,14 +59,20 @@ fun StealthCalcTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.background.toArgb()
+
+            // FIX: Set status bar to Transparent so content draws behind it
+            window.statusBarColor = Color.Transparent.toArgb()
+            window.navigationBarColor = Color.Transparent.toArgb() // Also fix bottom bar
+
+            // This controls if the Time/Battery icons are White or Black
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography, // Ensure Typography.kt exists (default is fine)
+        typography = Typography,
         content = content
     )
 }

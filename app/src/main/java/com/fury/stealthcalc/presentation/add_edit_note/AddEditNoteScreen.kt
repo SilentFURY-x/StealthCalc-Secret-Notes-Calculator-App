@@ -68,7 +68,7 @@ fun AddEditNoteScreen(
         }
     }
 
-    Scaffold(
+    Scaffold    (
         topBar = {
             // Transparent Top Bar
             CenterAlignedTopAppBar(
@@ -98,7 +98,8 @@ fun AddEditNoteScreen(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        containerColor = animatedBackground // Set Scaffold background
+        containerColor = animatedBackground, // Background goes edge-to-edge
+        contentWindowInsets = WindowInsets.systemBars // Scaffold will handle padding for inner content
     ) { padding ->
 
         Column(

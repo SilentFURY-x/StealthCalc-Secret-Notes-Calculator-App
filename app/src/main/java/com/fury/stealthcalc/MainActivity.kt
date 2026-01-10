@@ -12,11 +12,13 @@ import com.fury.stealthcalc.presentation.calculator.CalculatorScreen
 import com.fury.stealthcalc.ui.theme.StealthCalcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.fury.stealthcalc.presentation.Navigation
+import androidx.activity.enableEdgeToEdge
 
 @AndroidEntryPoint
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             StealthCalcTheme { // Use your theme wrapper
                 // Replace CalculatorScreen() with Navigation()
