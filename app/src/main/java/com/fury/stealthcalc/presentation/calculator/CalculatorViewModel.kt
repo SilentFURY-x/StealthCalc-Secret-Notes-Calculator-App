@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import net.objecthunter.exp4j.ExpressionBuilder // Using the math library we added
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor() : ViewModel() {
@@ -19,6 +22,9 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     // State for the calculation result (history or current answer)
     private val _result = MutableStateFlow("")
     val result = _result.asStateFlow()
+
+    private val _uiEvent = Channel<CalculatorUiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     fun onAction(action: CalculatorAction) {
         when (action) {
@@ -42,11 +48,13 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         val currentExpression = _input.value
 
         // 1. CHECK FOR SECRET CODE
+        // CHECK FOR SECRET CODE)
         if (currentExpression == "69/67") {
-            // We will handle the navigation event here later
-            // For now, let's just clear input to show it did "something"
+            viewModelScope.launch {
+                _uiEvent.send(CalculatorUiEvent.NavigateToVault) // <--- Trigger the event
+            }
             _input.value = ""
-            // In Phase 3, we add a SharedFlow to trigger navigation
+            _result.value = ""
             return
         }
 
