@@ -65,7 +65,7 @@ Engineered with **Modern Android Development (MAD)** standards, this app demonst
 
 | **The Disguise** | **The Unlock** | **The Vault** | **The Editor** |
 |:---:|:---:|:---:|:---:|
-| <img src="screenshots/calculator.png" width="240" /> | <img src="screenshots/biometric.png" width="240" /> | <img src="screenshots/vault.png" width="240" /> | <img src="screenshots/editor.png" width="240" /> |
+| <img src="screenshots/calculator.jpg" width="240" /> | <img src="screenshots/biometric.jpg" width="240" /> | <img src="screenshots/vault.jpg" width="240" /> | <img src="screenshots/editor.jpg" width="240" /> |
 
 </div>
 
