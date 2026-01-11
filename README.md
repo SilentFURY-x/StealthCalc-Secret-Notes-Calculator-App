@@ -121,25 +121,30 @@ com.fury.stealthcalc
 
 ## ⚡ Getting Started
 
+>**NOTE: — Biometric must be enabled on your device.**
+
 **Download the App:**
 * Click below to download the latest stable version (v1.0.0) for your Android device:
-* 👉 **[Download ShopAThing-v1.0.0.apk](https://github.com/SilentFURY-x/StealthCalc-Secret-Notes-Calculator-App/releases/download/v1.0.0/StealthCalc-v1.0.0.apk)**
+* 👉 **[Download StealthCalc-v1.0.0.apk](https://github.com/SilentFURY-x/StealthCalc-Secret-Notes-Calculator-App/releases/download/v1.0.0/StealthCalc-v1.0.0.apk)**
     
 **OR**
 * To explore the code or build it yourself:
 
   1. Clone the repository
   
-  ```bash
-  
-  git clone https://github.com/SilentFURY-x/StealthCalc-Secret-Notes-Calculator-App.git
-  
-  ```
+    ```bash
+    
+    git clone https://github.com/SilentFURY-x/StealthCalc-Secret-Notes-Calculator-App.git
+    
+    ```
+    
   2. Open in Android Studio
+    
     * Ensure you are using Android Studio Koala or newer.
     * Minimum SDK: API 26 (Android 8.0).
   
   3. Build & Run
+    
     * Sync Gradle.
     * Select app configuration.
     * Run on an Emulator (with Fingerprint enabled) or Physical Device.
