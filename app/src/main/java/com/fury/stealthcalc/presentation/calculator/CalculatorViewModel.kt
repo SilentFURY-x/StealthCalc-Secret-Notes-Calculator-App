@@ -85,7 +85,7 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    // THIS WAS MISSING: The function Navigation.kt calls on success
+    // The function Navigation.kt calls on success
     fun onBiometricSuccess() {
         viewModelScope.launch {
             _uiEvent.send(CalculatorUiEvent.NavigateToVault)

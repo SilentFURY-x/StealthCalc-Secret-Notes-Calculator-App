@@ -3,7 +3,7 @@ package com.fury.stealthcalc.di
 import android.app.Application
 import androidx.room.Room
 import com.fury.stealthcalc.data.NoteDatabase
-import com.fury.stealthcalc.data.NoteDao // Make sure to import this!
+import com.fury.stealthcalc.data.NoteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -20,8 +20,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            StealthCalcTheme { // Use your theme wrapper
-                // Replace CalculatorScreen() with Navigation()
+            StealthCalcTheme { // theme wrapper
                 Navigation()
             }
         }

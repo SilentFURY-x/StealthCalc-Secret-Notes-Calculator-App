@@ -10,5 +10,5 @@ data class Note(
     val title: String,
     val content: String,
     val timestamp: Long = System.currentTimeMillis(),
-    val color: Int // We will store a color ID to make the UI pretty later
+    val color: Int
 )

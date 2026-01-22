@@ -16,8 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-// We only really care about the Dark Theme for this app's aesthetic,
-// but we define both to prevent crashes.
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryOrange,
     secondary = SecondaryGray,
@@ -60,7 +58,7 @@ fun StealthCalcTheme(
         SideEffect {
             val window = (view.context as Activity).window
 
-            // FIX: Set status bar to Transparent so content draws behind it
+            // Set status bar to Transparent so content draws behind it
             window.statusBarColor = Color.Transparent.toArgb()
             window.navigationBarColor = Color.Transparent.toArgb() // Also fix bottom bar
 
