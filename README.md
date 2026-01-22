@@ -124,7 +124,7 @@ com.fury.stealthcalc
 >**NOTE: — Biometric must be enabled on your device.**
 
 **Download the App:**
-  * Click below to download the latest stable version (v1.0.0) for your Android device:
+  * Click below to download the latest stable version (v1.0.1) for your Android device:
   * 👉 **[Download StealthCalc-v1.0.1.apk](https://github.com/SilentFURY-x/StealthCalc-Secret-Notes-Calculator-App/releases/download/v1.0.1/StealthCalc_v1.0.1.apk)**
     
 <br />
